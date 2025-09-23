@@ -1,0 +1,20 @@
+# Build outputs
+android/
+ios/
+build/
+node_modules/
+
+# Generated files
+*.generated.js
+*.generated.ts
+
+# Package manager
+package-lock.json
+yarn.lock
+
+# Other
+*.log
+*.tmp
+*.temp
+.vscode/
+.idea/
