@@ -19,11 +19,11 @@ function RootStack() {
     const fetchData = async () => {
       const token = await AsyncStorage.getItem('token');
       const userName = await AsyncStorage.getItem('userName');
+      // app冷启动判断token是否存在，获取历史记录
       if (token) {
         try {
           // 获取历史记录
           const res = await post.getForecastList();
-          console.log('获取历史记录', res.data);
           appSetStateContext({
             ...appContext,
             userName: userName || '',

@@ -11,6 +11,7 @@ import { Images } from '../../assets';
 import { Avatar, Button, Image } from 'react-native-ui-lib';
 import { AppContext, AppSetStateContext } from '../../../AppContext.tsx';
 import post from '../../request/post.ts';
+import dayjs from 'dayjs';
 
 function CustomContent(props: any) {
   const appContext = useContext(AppContext);
@@ -63,6 +64,20 @@ function CustomContent(props: any) {
     navigation.closeDrawer();
   };
 
+  const delHistoryItem = async (id: string) => {
+    try {
+      await post.deleteForecast({ id });
+      setAppContext({
+        ...appContext,
+        historyList: appContext.historyList.filter(
+          (item: any) => item.id !== id,
+        ),
+      });
+    } catch (error) {
+      console.log('删除历史记录失败', error);
+    }
+  };
+
   // 判断是否展示历史记录
   const isShowHistoryList = useCallback(() => {
     if (appContext.isLogin) {
@@ -98,14 +113,25 @@ function CustomContent(props: any) {
                     ]}
                   >
                     <View style={styles.historyListItemContainer}>
-                      <Text style={{ color: '#8C8C8C' }}>{item.date}</Text>
-                      <Text
-                        style={styles.historyListItem}
-                        numberOfLines={1}
-                        ellipsizeMode="tail"
-                      >
-                        ({item.short}){item.question}
-                      </Text>
+                      <View>
+                        <Text style={{ color: '#8C8C8C' }}>
+                          {dayjs(item.date).format('YYYY-MM-DD HH:mm:ss')}
+                        </Text>
+                        <Text
+                          style={styles.historyListItem}
+                          numberOfLines={1}
+                          ellipsizeMode="tail"
+                        >
+                          ({item.short}){item.question}
+                        </Text>
+                      </View>
+                      <Button
+                        iconSource={Images.delete}
+                        backgroundColor="transparent"
+                        onPress={() => delHistoryItem(item.id)}
+                        style={{ width: 18, height: 18 }}
+                        iconStyle={{ width: 18, height: 18 }}
+                      />
                     </View>
                   </Pressable>
                 ),
@@ -266,6 +292,9 @@ const styles = StyleSheet.create({
     paddingVertical: 20,
   },
   historyListItemContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
     marginBottom: 18,
   },
   historyListItem: {

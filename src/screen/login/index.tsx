@@ -7,6 +7,7 @@ import {
   Button,
   LoaderScreen,
   Colors,
+  Incubator,
 } from 'react-native-ui-lib';
 import { Images } from '../../assets';
 import { useNavigation } from '@react-navigation/native';
@@ -17,28 +18,33 @@ import post from '../../request/post.ts';
 
 // 定义初始登录页面组件
 const LoginScreen: React.FC = () => {
+  const { Toast } = Incubator;
   const [userName, setUserName] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
 
   const navigation = useNavigation<LoginScreenNavigationProp>();
   const appContext = useContext(AppContext);
-  const setAppContext = useContext(AppSetStateContext);
+  const appSetStateContext = useContext(AppSetStateContext);
   const updateLoginState = async () => {
     setLoading(true);
     try {
+      // 登录
       const res = await post.registerOrLogin({
         userName,
         password,
       });
-      setAppContext({
-        ...appContext,
-        isLogin: true,
-        userName: res.data?.user.userName || '',
-      });
       await AsyncStorage.setItem('token', res.data?.token);
       await AsyncStorage.setItem('userName', res.data?.user?.userName);
-
+      // 登录成功，获取历史记录
+      const listRes = await post.getForecastList();
+      appSetStateContext({
+        ...appContext,
+        userName: res.data?.user?.userName || '',
+        isLogin: true,
+        historyList: listRes.data || [],
+      });
       setTimeout(() => {
         setLoading(false);
         navigation.replace('HomeDrawer');
@@ -46,6 +52,7 @@ const LoginScreen: React.FC = () => {
     } catch (error) {
       setTimeout(() => {
         setLoading(false);
+        setIsVisible(true);
         console.log('登录失败', error);
       }, 0);
     }
@@ -98,6 +105,14 @@ const LoginScreen: React.FC = () => {
           backgroundColor="rgba(0, 0, 0, 0.5)"
         />
       )}
+      <Toast
+        visible={isVisible}
+        position={'top'}
+        autoDismiss={2500}
+        onDismiss={() => setIsVisible(false)}
+        message="登录失败"
+        preset="failure"
+      />
     </SafeAreaView>
   );
 };
