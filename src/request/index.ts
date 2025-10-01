@@ -3,8 +3,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Axios = axios.create({
   timeout: 120000,
-  // baseURL: 'https://six.yjzniubility.cn/gateway',
-  baseURL: 'http://192.168.1.8:8803',
+  baseURL: 'https://forecastapi.yjzniubility.cn/',
 });
 
 Axios.interceptors.request.use(async config => {
