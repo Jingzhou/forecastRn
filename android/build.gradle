@@ -8,13 +8,32 @@ buildscript {
         kotlinVersion = "2.1.20"
     }
     repositories {
+        // 优先使用官方源
         google()
         mavenCentral()
+        // 添加一些其他可靠的镜像源作为补充
+        maven { url 'https://maven.aliyun.com/repository/jcenter' }
+        maven { url 'https://maven.aliyun.com/repository/google' }
+        maven { url 'https://maven.aliyun.com/repository/gradle-plugin' }
+        maven { url 'https://jitpack.io' }
     }
     dependencies {
         classpath("com.android.tools.build:gradle")
         classpath("com.facebook.react:react-native-gradle-plugin")
         classpath("org.jetbrains.kotlin:kotlin-gradle-plugin")
+    }
+}
+
+allprojects {
+    repositories {
+        // 优先使用官方源
+        google()
+        mavenCentral()
+        // 添加一些其他可靠的镜像源作为补充
+        maven { url 'https://maven.aliyun.com/repository/jcenter' }
+        maven { url 'https://maven.aliyun.com/repository/google' }
+        maven { url 'https://maven.aliyun.com/repository/gradle-plugin' }
+        maven { url 'https://jitpack.io' }
     }
 }
 
