@@ -134,7 +134,7 @@ function HomeScreen(props: any) {
         <View style={styles.resultTips}>
           <Text style={styles.resultTipsTitle}>小六壬</Text>
           <Text style={styles.resultTipsDesc}>
-            不急不占，无事不占，不动不占
+            不急不占，无事不占，不动不占！
           </Text>
         </View>
       );
