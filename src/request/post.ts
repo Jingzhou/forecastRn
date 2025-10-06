@@ -25,10 +25,16 @@ const deleteForecast = (data: { id: string }) => {
   return $http.post(api.deleteForecast, data);
 };
 
+// 获取指定日期的农历信息
+const getLunarInfoByDate = (data: { date: string }) => {
+  return $http.post(api.getLunarInfoByDate, data);
+};
+
 export default {
   gerForecast,
   registerOrLogin,
   getForecastList,
   clearForecastList,
   deleteForecast,
+  getLunarInfoByDate,
 };

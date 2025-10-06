@@ -4,4 +4,5 @@ export default {
   getForecastList: '/api/getForecastList',
   clearForecastList: '/api/clearForecastList',
   deleteForecast: '/api/deleteForecast',
+  getLunarInfoByDate: '/api/getLunarInfoByDate',
 };

@@ -102,7 +102,6 @@ function HomeScreen(props: any) {
       setLoading(false);
     }
   };
-
   // 返回占卜结果
   const renderResultData = useCallback(() => {
     if (resultData.id) {
@@ -131,15 +130,116 @@ function HomeScreen(props: any) {
       );
     } else {
       return (
-        <View style={styles.resultTips}>
-          <Text style={styles.resultTipsTitle}>小六壬</Text>
+        <View style={styles.lunarContainer}>
+          {/* <Text style={styles.resultTipsTitle}>小六壬</Text>
           <Text style={styles.resultTipsDesc}>
             不急不占，无事不占，不动不占！
-          </Text>
+          </Text> */}
+          {/* 农历日期 */}
+          <View style={styles.lunarDateInfo}>
+            <Text style={styles.lunarDateInfoText}>
+              {appContext.lunar.date || ''}
+            </Text>
+            <Text style={styles.lunarDateInfoText}>
+              {appContext.lunar.lunarInfo?.Lunar || ''}{' '}
+              {appContext.lunar.lunarInfo?.GanZhiYear || ''}{' '}
+              {appContext.lunar.lunarInfo?.GanZhiMonth || ''}{' '}
+              {appContext.lunar.lunarInfo?.GanZhiDay || ''}{' '}
+              {appContext.lunar.lunarInfo?.Week || ''}
+            </Text>
+          </View>
+          {/* 农历宜忌 */}
+          <View style={styles.lunarYiJiContainer}>
+            <View style={styles.lunarYi}>
+              <Text style={styles.lunarYiTitle}>宜</Text>
+              <Text>{appContext.lunar.lunarInfo?.YiDay || ''}</Text>
+              <Text style={styles.lunarYiTitle}>吉神宜趋</Text>
+              <Text>{appContext.lunar.lunarInfo?.JiShenDay || ''}</Text>
+            </View>
+            <View style={styles.lunarJi}>
+              <Text style={styles.lunarJiTitle}>忌</Text>
+              <Text>{appContext.lunar.lunarInfo?.JiDay || ''}</Text>
+              <Text style={styles.lunarJiTitle}>凶神宜忌</Text>
+              <Text>{appContext.lunar.lunarInfo?.XiongShaDay || ''}</Text>
+            </View>
+          </View>
+          {/* 农历诸神方位、彭祖百忌 */}
+          <View style={styles.lunarGodsContainer}>
+            <View style={styles.lunarGods}>
+              <View style={{ ...styles.lunarGodsItem, width: '20%' }}>
+                <Text>财神</Text>
+                <Text>
+                  {appContext.lunar.lunarInfo?.CaiShen.split('=')[1] || ''}
+                </Text>
+              </View>
+              <View style={{ ...styles.lunarGodsItem, width: '20%' }}>
+                <Text>福神</Text>
+                <Text>
+                  {appContext.lunar.lunarInfo?.FuShen.split('=')[1] || ''}
+                </Text>
+              </View>
+              <View style={{ ...styles.lunarGodsItem, width: '20%' }}>
+                <Text>喜神</Text>
+                <Text>
+                  {appContext.lunar.lunarInfo?.XiShen.split('=')[1] || ''}
+                </Text>
+              </View>
+              <View style={{ ...styles.lunarGodsItem, width: '20%' }}>
+                <Text>阳贵</Text>
+                <Text>
+                  {appContext.lunar.lunarInfo?.YangGuiShen.split('=')[1] || ''}
+                </Text>
+              </View>
+              <View style={{ ...styles.lunarGodsItem, width: '20%' }}>
+                <Text>阴贵</Text>
+                <Text>
+                  {appContext.lunar.lunarInfo?.YinGuiShen.split('=')[1] || ''}
+                </Text>
+              </View>
+            </View>
+            <View style={styles.lunarGods}>
+              <View style={{ ...styles.lunarGodsItem, width: '33.33%' }}>
+                <Text>今日胎神</Text>
+                <Text>{appContext.lunar.lunarInfo?.TaiShenDay || ''}</Text>
+              </View>
+              <View style={{ ...styles.lunarGodsItem, width: '33.33%' }}>
+                <Text>十二神</Text>
+                <Text>{appContext.lunar.lunarInfo?.ZhiXing || ''}</Text>
+              </View>
+              <View style={{ ...styles.lunarGodsItem, width: '33.33%' }}>
+                <Text>二十八宿星</Text>
+                <Text>{appContext.lunar.lunarInfo?.XiuLuck || ''}</Text>
+              </View>
+            </View>
+            <View style={styles.lunarGods}>
+              <View style={{ ...styles.lunarGodsItem, width: '33.33%' }}>
+                <Text>值神</Text>
+                <Text>{appContext.lunar.lunarInfo?.SiShou || ''}</Text>
+              </View>
+              <View style={{ ...styles.lunarGodsItem, width: '33.33%' }}>
+                <Text>五行</Text>
+                <Text>{appContext.lunar.lunarInfo?.NaYinDay || ''}</Text>
+              </View>
+              <View style={{ ...styles.lunarGodsItem, width: '33.33%' }}>
+                <Text>冲煞</Text>
+                <Text>
+                  {appContext.lunar.lunarInfo?.ChongDay || ''}，
+                  {appContext.lunar.lunarInfo?.ShaDay || ''}
+                </Text>
+              </View>
+            </View>
+
+            <View style={styles.lunarGodsTitle}>
+              <Text style={styles.lunarGodsTitleText}>彭祖百忌</Text>
+            </View>
+            <View style={styles.lunarPengZuBaiJi}>
+              <Text>{appContext.lunar.lunarInfo?.PengZuBaiJi || ''}</Text>
+            </View>
+          </View>
         </View>
       );
     }
-  }, [resultData.id]);
+  }, [resultData.id, appContext.lunar]);
   // 接收questionCom回调
   const sendQuestion = ({
     codes,
@@ -210,7 +310,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
     lineHeight: 24,
     marginTop: 8,
-    // paddingLeft: 28,
   },
   questionComContainer: {
     marginTop: 20,
@@ -218,6 +317,68 @@ const styles = StyleSheet.create({
     padding: 20,
     backgroundColor: '#f5f5f5',
     borderRadius: 12,
+  },
+  lunarContainer: {},
+  lunarDateInfo: {
+    alignItems: 'center',
+  },
+  lunarDateInfoText: {
+    fontSize: 16,
+  },
+  lunarYiJiContainer: {
+    flexDirection: 'row',
+    marginTop: 10,
+  },
+  lunarYi: {
+    flex: 1,
+    backgroundColor: '#F0FEF4',
+    padding: 12,
+    marginRight: 10,
+    borderRadius: 12,
+  },
+  lunarJi: {
+    flex: 1,
+    backgroundColor: '#FEF1F2',
+    padding: 12,
+    borderRadius: 12,
+  },
+  lunarYiTitle: {
+    fontSize: 16,
+    lineHeight: 24,
+    fontWeight: 'bold',
+    color: '#3B965B',
+  },
+  lunarJiTitle: {
+    fontSize: 16,
+    lineHeight: 24,
+    fontWeight: 'bold',
+    color: '#BA1F1F',
+  },
+  lunarGodsContainer: {
+    marginTop: 10,
+    backgroundColor: '#DCE9FE',
+    padding: 12,
+    borderRadius: 12,
+  },
+  lunarGodsTitle: {
+    alignItems: 'center',
+  },
+  lunarGodsTitleText: {
+    fontSize: 16,
+    lineHeight: 24,
+    fontWeight: 'bold',
+    color: '#191919',
+  },
+  lunarGods: {
+    flexDirection: 'row',
+    marginBottom: 10,
+  },
+  lunarGodsItem: {
+    flex: 1,
+    alignItems: 'center',
+  },
+  lunarPengZuBaiJi: {
+    alignItems: 'center',
   },
 });
 
