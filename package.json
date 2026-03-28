@@ -21,6 +21,7 @@
     "@react-navigation/native": "^7.1.17",
     "@react-navigation/native-stack": "^7.3.26",
     "axios": "^1.11.0",
+    "dayjs": "^1.11.20",
     "eslint-plugin-react-hooks": "^6.1.0-canary-5e0c951b-20250916",
     "react": "19.1.0",
     "react-native": "0.80.0",

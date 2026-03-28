@@ -138,29 +138,29 @@ function HomeScreen(props: any) {
           {/* 农历日期 */}
           <View style={styles.lunarDateInfo}>
             <Text style={styles.lunarDateInfoText}>
-              {appContext.lunar.date || ''}
+              {appContext.lunar?.date || ''}
             </Text>
             <Text style={styles.lunarDateInfoText}>
-              {appContext.lunar.lunarInfo?.Lunar || ''}{' '}
-              {appContext.lunar.lunarInfo?.GanZhiYear || ''}{' '}
-              {appContext.lunar.lunarInfo?.GanZhiMonth || ''}{' '}
-              {appContext.lunar.lunarInfo?.GanZhiDay || ''}{' '}
-              {appContext.lunar.lunarInfo?.Week || ''}
+              {appContext.lunar?.lunarInfo?.Lunar || ''}{' '}
+              {appContext.lunar?.lunarInfo?.GanZhiYear || ''}{' '}
+              {appContext.lunar?.lunarInfo?.GanZhiMonth || ''}{' '}
+              {appContext.lunar?.lunarInfo?.GanZhiDay || ''}{' '}
+              {appContext.lunar?.lunarInfo?.Week || ''}
             </Text>
           </View>
           {/* 农历宜忌 */}
           <View style={styles.lunarYiJiContainer}>
             <View style={styles.lunarYi}>
               <Text style={styles.lunarYiTitle}>宜</Text>
-              <Text>{appContext.lunar.lunarInfo?.YiDay || ''}</Text>
+              <Text>{appContext.lunar?.lunarInfo?.YiDay || ''}</Text>
               <Text style={styles.lunarYiTitle}>吉神宜趋</Text>
-              <Text>{appContext.lunar.lunarInfo?.JiShenDay || ''}</Text>
+              <Text>{appContext.lunar?.lunarInfo?.JiShenDay || ''}</Text>
             </View>
             <View style={styles.lunarJi}>
               <Text style={styles.lunarJiTitle}>忌</Text>
-              <Text>{appContext.lunar.lunarInfo?.JiDay || ''}</Text>
+              <Text>{appContext.lunar?.lunarInfo?.JiDay || ''}</Text>
               <Text style={styles.lunarJiTitle}>凶神宜忌</Text>
-              <Text>{appContext.lunar.lunarInfo?.XiongShaDay || ''}</Text>
+              <Text>{appContext.lunar?.lunarInfo?.XiongShaDay || ''}</Text>
             </View>
           </View>
           {/* 农历诸神方位、彭祖百忌 */}
@@ -169,62 +169,63 @@ function HomeScreen(props: any) {
               <View style={{ ...styles.lunarGodsItem, width: '20%' }}>
                 <Text>财神</Text>
                 <Text>
-                  {appContext.lunar.lunarInfo?.CaiShen.split('=')[1] || ''}
+                  {appContext.lunar?.lunarInfo?.CaiShen?.split('=')[1] || ''}
                 </Text>
               </View>
               <View style={{ ...styles.lunarGodsItem, width: '20%' }}>
                 <Text>福神</Text>
                 <Text>
-                  {appContext.lunar.lunarInfo?.FuShen.split('=')[1] || ''}
+                  {appContext.lunar?.lunarInfo?.FuShen?.split('=')[1] || ''}
                 </Text>
               </View>
               <View style={{ ...styles.lunarGodsItem, width: '20%' }}>
                 <Text>喜神</Text>
                 <Text>
-                  {appContext.lunar.lunarInfo?.XiShen.split('=')[1] || ''}
+                  {appContext.lunar?.lunarInfo?.XiShen?.split('=')[1] || ''}
                 </Text>
               </View>
               <View style={{ ...styles.lunarGodsItem, width: '20%' }}>
                 <Text>阳贵</Text>
                 <Text>
-                  {appContext.lunar.lunarInfo?.YangGuiShen.split('=')[1] || ''}
+                  {appContext.lunar?.lunarInfo?.YangGuiShen?.split('=')[1] ||
+                    ''}
                 </Text>
               </View>
               <View style={{ ...styles.lunarGodsItem, width: '20%' }}>
                 <Text>阴贵</Text>
                 <Text>
-                  {appContext.lunar.lunarInfo?.YinGuiShen.split('=')[1] || ''}
+                  {appContext.lunar?.lunarInfo?.YinGuiShen?.split('=')[1] || ''}
                 </Text>
               </View>
             </View>
             <View style={styles.lunarGods}>
               <View style={{ ...styles.lunarGodsItem, width: '33.33%' }}>
                 <Text>今日胎神</Text>
-                <Text>{appContext.lunar.lunarInfo?.TaiShenDay || ''}</Text>
+                <Text>{appContext.lunar?.lunarInfo?.TaiShenDay || ''}</Text>
               </View>
               <View style={{ ...styles.lunarGodsItem, width: '33.33%' }}>
                 <Text>十二神</Text>
-                <Text>{appContext.lunar.lunarInfo?.ZhiXing || ''}</Text>
+                <Text>{appContext.lunar?.lunarInfo?.ZhiXing || ''}</Text>
               </View>
               <View style={{ ...styles.lunarGodsItem, width: '33.33%' }}>
                 <Text>二十八宿星</Text>
-                <Text>{appContext.lunar.lunarInfo?.XiuLuck || ''}</Text>
+                <Text>{appContext.lunar?.lunarInfo?.XiuLuck || ''}</Text>
               </View>
             </View>
             <View style={styles.lunarGods}>
               <View style={{ ...styles.lunarGodsItem, width: '33.33%' }}>
                 <Text>值神</Text>
-                <Text>{appContext.lunar.lunarInfo?.SiShou || ''}</Text>
+                <Text>{appContext.lunar?.lunarInfo?.SiShou || ''}</Text>
               </View>
               <View style={{ ...styles.lunarGodsItem, width: '33.33%' }}>
                 <Text>五行</Text>
-                <Text>{appContext.lunar.lunarInfo?.NaYinDay || ''}</Text>
+                <Text>{appContext.lunar?.lunarInfo?.NaYinDay || ''}</Text>
               </View>
               <View style={{ ...styles.lunarGodsItem, width: '33.33%' }}>
                 <Text>冲煞</Text>
                 <Text>
-                  {appContext.lunar.lunarInfo?.ChongDay || ''}，
-                  {appContext.lunar.lunarInfo?.ShaDay || ''}
+                  {appContext.lunar?.lunarInfo?.ChongDay || ''}，
+                  {appContext.lunar?.lunarInfo?.ShaDay || ''}
                 </Text>
               </View>
             </View>
@@ -233,7 +234,7 @@ function HomeScreen(props: any) {
               <Text style={styles.lunarGodsTitleText}>彭祖百忌</Text>
             </View>
             <View style={styles.lunarPengZuBaiJi}>
-              <Text>{appContext.lunar.lunarInfo?.PengZuBaiJi || ''}</Text>
+              <Text>{appContext.lunar?.lunarInfo?.PengZuBaiJi || ''}</Text>
             </View>
           </View>
         </View>
